@@ -1,18 +1,19 @@
 import {
+  Accordion,
+  Anchor,
   Badge,
-  Box,
   Group,
   Radio,
-  SimpleGrid,
   Stack,
+  Table,
   Text,
 } from "@mantine/core";
 import { useQueryClient } from "react-query";
-import { listOrdersInProgress } from "../index.service";
-import { getStatus } from "../utils/table";
-import { formatCurrency } from "../../../../../utils";
 import Loading from "../../../../../components/Loading";
 import NoData from "../../../../../components/NoData";
+import { formatCurrency } from "../../../../../utils";
+import { listOrdersInProgress } from "../index.service";
+import { getStatus } from "../utils/table";
 
 interface OrdersDashboardMobileProps {
   activeTab:
@@ -37,7 +38,7 @@ export default function OrdersDashboardMobile({
   const queryClient = useQueryClient();
 
   return (
-    <Stack h="100%">
+    <Stack h="100%" style={{ overflow: "auto" }}>
       <Radio.Group
         value={activeTab}
         onChange={async (e) => {
@@ -68,8 +69,9 @@ export default function OrdersDashboardMobile({
         </Group>
       </Radio.Group>
 
-      {ordersData?.length && !orderDataIsLoading
-        ? ordersData?.map((order: any, index: number) => {
+      {ordersData?.length && !orderDataIsLoading ? (
+        <Accordion>
+          {ordersData?.map((order: any, index: number) => {
             const badge = getStatus({
               delivered: order?.delivered ?? false,
               finished: order?.finished ?? false,
@@ -79,44 +81,54 @@ export default function OrdersDashboardMobile({
             });
 
             return (
-              <Box
+              <Accordion.Item
                 key={index}
-                style={(theme) => ({
-                  border: `1px solid ${theme.colors.blue[4]}`,
-                  // backgroundColor: "red",
-                  borderRadius: "4px",
-                  padding: ".5rem",
-                })}
+                value={order?.id?.toString() ?? index?.toString}
               >
-                <Group justify="space-between">
-                  <Text fw={700}>{`Pedido Nº ${order?.id}`}</Text>
-                  <Badge size="xs" color={badge?.color}>
-                    {badge?.text}
-                  </Badge>
-                </Group>
-                <SimpleGrid cols={3}>
-                  <Text fz={".875rem"}>{`${
-                    order?.createdAt
-                      ? new Date(order?.createdAt)?.toLocaleDateString("pt-br")
-                      : "-"
-                  }`}</Text>
-                  <Text
-                    fz={".875rem"}
-                    style={{
-                      maxWidth: "100%",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                    }}
-                  >{`${order?.client?.name ?? "-"}`}</Text>
-                  <Text fz={".875rem"}>{`${formatCurrency(
-                    order?.price ?? 0
-                  )}`}</Text>
-                </SimpleGrid>
-              </Box>
+                <Accordion.Control>
+                  <Group>
+                    <Text fw={700}>{`Pedido Nº ${order?.id}`}</Text>
+                    <Badge size="xs" color={badge?.color}>
+                      {badge?.text}
+                    </Badge>
+                  </Group>
+                </Accordion.Control>
+                <Accordion.Panel>
+                  <Table>
+                    <Table.Thead
+                      style={{
+                        fontSize: ".65rem",
+                        backgroundColor: "none",
+                        color: "black",
+                      }}
+                    >
+                      <Table.Th>Data</Table.Th>
+                      <Table.Th>Paciente</Table.Th>
+                      <Table.Th>Valor</Table.Th>
+                    </Table.Thead>
+                    <Table.Tbody style={{ fontSize: ".6rem" }}>
+                      <Table.Tr>
+                        <Table.Td>
+                          {order?.createdAt
+                            ? new Date(order?.createdAt)?.toLocaleDateString(
+                                "pt-br"
+                              )
+                            : "-"}
+                        </Table.Td>
+                        <Table.Td>{order?.patientName ?? "-"}</Table.Td>
+                        <Table.Td>{formatCurrency(order?.price ?? 0)}</Table.Td>
+                      </Table.Tr>
+                    </Table.Tbody>
+                  </Table>
+                  <Anchor href={`/view-order/${order?.id}`}>
+                    Visualizar pedido
+                  </Anchor>
+                </Accordion.Panel>
+              </Accordion.Item>
             );
-          })
-        : null}
+          })}
+        </Accordion>
+      ) : null}
       {orderDataIsLoading && <Loading />}
       {!orderDataIsLoading && !ordersData?.length && <NoData />}
     </Stack>
