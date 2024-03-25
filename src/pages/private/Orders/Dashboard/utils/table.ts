@@ -41,7 +41,7 @@ export const getStatus = ({
 }: GetStatusProps): { text: string; color: string } => {
     const finishedStages = stages?.filter((stage) => stage.finished);
     const finishedAllStages = finishedStages?.length === stages?.length;
-    const startedStage = stages.find((stage) => stage.started);
+    const startedStage = stages?.find((stage) => stage.started);
 
     const finish = Boolean(finished) || Boolean(finishedAt);
     const delivery = Boolean(delivered) || Boolean(deliveredAt);

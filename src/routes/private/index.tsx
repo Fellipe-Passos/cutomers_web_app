@@ -1,5 +1,6 @@
 import CollectionDashboard from "../../pages/private/Collections/Dashboard";
 import OrdersDashboard from "../../pages/private/Orders/Dashboard";
+import ViewOrder from "../../pages/private/Orders/ViewOrder";
 import { RoutesType } from "../../types/routesTypes";
 
 export const homeRoutes: RoutesType[] = [
@@ -14,5 +15,12 @@ export const homeRoutes: RoutesType[] = [
     path: "/view-collections",
     isPrivate: true,
     title: "Minhas cobranças",
+  },
+  {
+    element: <ViewOrder />,
+    path: "/view-order/:orderId",
+    isPrivate: true,
+    title: "Pedido",
+    returnButton: true,
   },
 ];

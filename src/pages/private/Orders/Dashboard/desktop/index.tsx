@@ -7,6 +7,7 @@ import { listOrdersInProgress } from "../index.service";
 import { getStatus, header } from "../utils/table";
 import { Eye } from "tabler-icons-react";
 import { formatCurrency } from "../../../../../utils";
+import { useNavigate } from "react-router-dom";
 
 interface OrdersDashboardDesktopProps {
   activeTab:
@@ -29,6 +30,7 @@ export default function OrdersDashboardDesktop({
   onTabChange,
 }: OrdersDashboardDesktopProps): JSX.Element {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const rows =
     ordersData &&
@@ -61,7 +63,7 @@ export default function OrdersDashboardDesktop({
               <Tooltip label="Visualizar pedido">
                 <ActionIcon
                   color="cyan"
-                  // onClick={() => navigate(`/edit-order/${order?.id}`)}
+                  onClick={() => navigate(`/view-order/${order?.id}`)}
                 >
                   <Eye />
                 </ActionIcon>
