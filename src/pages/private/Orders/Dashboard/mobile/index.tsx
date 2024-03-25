@@ -2,6 +2,7 @@ import {
   Accordion,
   Anchor,
   Badge,
+  Button,
   Group,
   Radio,
   Stack,
@@ -14,6 +15,7 @@ import NoData from "../../../../../components/NoData";
 import { formatCurrency } from "../../../../../utils";
 import { listOrdersInProgress } from "../index.service";
 import { getStatus } from "../utils/table";
+import { useNavigate } from "react-router-dom";
 
 interface OrdersDashboardMobileProps {
   activeTab:
@@ -36,6 +38,7 @@ export default function OrdersDashboardMobile({
   ordersData,
 }: OrdersDashboardMobileProps): JSX.Element {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return (
     <Stack h="100%" style={{ overflow: "auto" }}>
@@ -120,9 +123,12 @@ export default function OrdersDashboardMobile({
                       </Table.Tr>
                     </Table.Tbody>
                   </Table>
-                  <Anchor href={`/view-order/${order?.id}`}>
+                  <Button
+                    variant="subtle"
+                    onClick={() => navigate(`/view-order/${order?.id}`)}
+                  >
                     Visualizar pedido
-                  </Anchor>
+                  </Button>
                 </Accordion.Panel>
               </Accordion.Item>
             );
