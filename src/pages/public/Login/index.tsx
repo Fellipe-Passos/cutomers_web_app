@@ -59,7 +59,7 @@ export default function Login() {
           <Stack justify="center" h={"100%"}>
             <Title c={"main"}>Login</Title>
             <Text fz={".9rem"} c="gray">
-              Informe seu E-mail e CPF para acompanhar seus pedidos.
+              Informe seu CPF para acompanhar seus pedidos.
             </Text>
             <Radio.Group
               label="Tipo de cliente"
