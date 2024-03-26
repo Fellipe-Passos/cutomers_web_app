@@ -11,6 +11,8 @@ export const login = async (data: UserType) => {
 };
 
 export const loginSuccess = (data: any) => {
-    localStorage.setItem("@ProductionLine:token", data?.token);
-    localStorage.setItem("@ProductionLine:user", JSON.stringify(data?.user));
+    console.log(data);
+
+    localStorage.setItem("@APPDreamLab:token", data?.token);
+    localStorage.setItem("@APPDreamLab:user", JSON.stringify(data?.user || data?.client));
 };

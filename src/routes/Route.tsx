@@ -10,7 +10,7 @@ export default function PrivateRoute({
   children,
   redirectTo,
 }: RouteProps): any {
-  const token = localStorage.getItem("@ProductionLine:token");
+  const token = localStorage.getItem("@APPDreamLab:token");
 
   return token ? children : <Navigate to={redirectTo} />;
 }

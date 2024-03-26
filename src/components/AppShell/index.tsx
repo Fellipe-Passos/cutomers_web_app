@@ -87,7 +87,7 @@ export function AppShell({ children, pageTitle, returnButton }: AppShellProps) {
               leftSection={<Logout />}
               fullWidth
               onClick={() => {
-                localStorage.removeItem("@ProductionLine:token");
+                localStorage.removeItem("@APPDreamLab:token");
                 navigate("/");
               }}
             >

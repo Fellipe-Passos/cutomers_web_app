@@ -1,7 +1,7 @@
 import { UserType } from "../types/user";
 
 export function getUserRole() {
-    const token = localStorage.getItem('@ProductionLine:user') || '{}'
+    const token = localStorage.getItem('@APPDreamLab:user') || '{}'
 
     if (token) {
         const { role } = JSON?.parse(token) as UserType
@@ -13,7 +13,7 @@ export function getUserRole() {
 }
 
 export function getUserFirstName() {
-    const userData = JSON.parse(localStorage.getItem('@ProductionLine:user') || '') as UserType;
+    const userData = JSON.parse(localStorage.getItem('@APPDreamLab:user') || '') as UserType;
 
     if (userData && userData?.name) {
         const nameParts = userData?.name?.split(' ');

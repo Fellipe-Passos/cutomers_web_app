@@ -11,7 +11,7 @@ export class ApiService {
         endpoint: string,
         data: any = "",
         payload: any = "",
-        token: any = localStorage.getItem("@ProductionLine:token") || false,
+        token: any = localStorage.getItem("@APPDreamLab:token") || false,
         INSTANCE_KEY = import.meta.env.VITE_WHATSAPP_API_INSTANCE_KEY
     ) => {
         let url = `${this.apiURL}${endpoint}`;

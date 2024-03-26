@@ -1,6 +1,5 @@
 import {
   Accordion,
-  Anchor,
   Badge,
   Button,
   Group,
@@ -10,12 +9,12 @@ import {
   Text,
 } from "@mantine/core";
 import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../../../../components/Loading";
 import NoData from "../../../../../components/NoData";
 import { formatCurrency } from "../../../../../utils";
 import { listOrdersInProgress } from "../index.service";
 import { getStatus } from "../utils/table";
-import { useNavigate } from "react-router-dom";
 
 interface OrdersDashboardMobileProps {
   activeTab:
