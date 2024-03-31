@@ -33,6 +33,7 @@ export default function ViewOrder(): JSX.Element {
   );
 
   const badge = getStatus({
+    underAnalysis: Boolean(orderData?.underAnalysis),
     delivered: orderData?.delivered ?? false,
     finished: orderData?.finished ?? false,
     deliveredAt: orderData?.deliveredAt ?? null,

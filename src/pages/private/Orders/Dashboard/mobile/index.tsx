@@ -15,6 +15,7 @@ import NoData from "../../../../../components/NoData";
 import { formatCurrency } from "../../../../../utils";
 import { listOrdersInProgress } from "../index.service";
 import { getStatus } from "../utils/table";
+import { CirclePlus } from "tabler-icons-react";
 
 interface OrdersDashboardMobileProps {
   activeTab:
@@ -71,10 +72,19 @@ export default function OrdersDashboardMobile({
         </Group>
       </Radio.Group>
 
+      <Button
+        variant="light"
+        leftSection={<CirclePlus />}
+        onClick={() => navigate("/new-order")}
+      >
+        Adicionar novo pedido
+      </Button>
+
       {ordersData?.length && !orderDataIsLoading ? (
         <Accordion>
           {ordersData?.map((order: any, index: number) => {
             const badge = getStatus({
+              underAnalysis: order?.underAnalysis,
               delivered: order?.delivered ?? false,
               finished: order?.finished ?? false,
               deliveredAt: order?.deliveredAt ?? null,

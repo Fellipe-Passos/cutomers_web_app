@@ -8,11 +8,16 @@ const LoginSchema = Yup.object().shape({
     type: Yup
         .string()
         .required('É necessário preencher este campo.'),
+
+    password: Yup
+        .string()
+        .required('É necessário preencher este campo.')
 });
 
 const LoginSchemaInitialValues = {
     cpf: '',
-    type: 'PF'
+    type: 'PF',
+    password: ''
 };
 
 export { LoginSchema, LoginSchemaInitialValues };

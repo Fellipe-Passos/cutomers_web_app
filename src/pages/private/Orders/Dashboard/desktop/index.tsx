@@ -1,11 +1,19 @@
-import { ActionIcon, Badge, Group, Stack, Table, Tooltip } from "@mantine/core";
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Group,
+  Stack,
+  Table,
+  Tooltip,
+} from "@mantine/core";
 import { useQueryClient } from "react-query";
 import Loading from "../../../../../components/Loading";
 import NoData from "../../../../../components/NoData";
 import Tabs from "../../../../../components/Tabs";
 import { listOrdersInProgress } from "../index.service";
 import { getStatus, header } from "../utils/table";
-import { Eye } from "tabler-icons-react";
+import { CirclePlus, Eye } from "tabler-icons-react";
 import { formatCurrency } from "../../../../../utils";
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +44,7 @@ export default function OrdersDashboardDesktop({
     ordersData &&
     ordersData.map((order: any) => {
       const badge = getStatus({
+        underAnalysis: order?.underAnalysis,
         delivered: order?.delivered ?? false,
         finished: order?.finished ?? false,
         deliveredAt: order?.deliveredAt ?? null,
@@ -76,7 +85,8 @@ export default function OrdersDashboardDesktop({
 
   return (
     <Stack h="100%">
-      <Group justify="center">
+      <Group justify="space-between">
+        <div />
         <Tabs
           tabs={[
             { label: "Pedidos em progresso", value: "ALL" },
@@ -98,6 +108,13 @@ export default function OrdersDashboardDesktop({
             );
           }}
         />
+        <Button
+          variant="light"
+          leftSection={<CirclePlus />}
+          onClick={() => navigate("/new-order")}
+        >
+          Adicionar novo pedido
+        </Button>
       </Group>
       {ordersData?.length && !orderDataIsLoading ? (
         <Table.ScrollContainer minWidth={"100%"}>

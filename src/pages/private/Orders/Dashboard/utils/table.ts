@@ -13,6 +13,7 @@ export const header = [
 
 
 interface GetStatusProps {
+    underAnalysis: boolean;
     delivered: boolean;
     deliveredAt: Date | string | null;
     finished: boolean;
@@ -33,6 +34,7 @@ interface GetStatusProps {
 }
 
 export const getStatus = ({
+    underAnalysis,
     delivered,
     deliveredAt,
     finished,
@@ -41,14 +43,21 @@ export const getStatus = ({
 }: GetStatusProps): { text: string; color: string } => {
     const finishedStages = stages?.filter((stage) => stage.finished);
     const finishedAllStages = finishedStages?.length === stages?.length;
-    const startedStage = stages?.find((stage) => stage.started);
+    const startedStage = stages.find((stage) => stage.started);
 
     const finish = Boolean(finished) || Boolean(finishedAt);
     const delivery = Boolean(delivered) || Boolean(deliveredAt);
 
+    if (underAnalysis) {
+        return {
+            text: 'Em análise',
+            color: 'orange'
+        }
+    }
+
     if (!stages?.length) {
         return {
-            text: "Cadastrar etapas",
+            text: "Sem etapas",
             color: "gray",
         };
     }
@@ -56,7 +65,7 @@ export const getStatus = ({
     if (startedStage) {
         return {
             text: `Setor ${translateRole(startedStage?.role as UserRoles)}`,
-            color: "orange",
+            color: "cyan",
         };
     }
 
@@ -69,7 +78,7 @@ export const getStatus = ({
 
     if (finishedAllStages && !finish && !delivery) {
         return {
-            text: "Liberar para financeiro",
+            text: "Etapas finalizadas",
             color: "green",
         };
     }
@@ -83,10 +92,12 @@ export const getStatus = ({
 
     if (finish && delivery) {
         return {
-            text: "Finalizado",
+            text: "Pago",
             color: "green",
         };
     }
+
+
 
     return {
         text: "-",

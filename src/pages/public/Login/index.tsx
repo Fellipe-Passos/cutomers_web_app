@@ -41,6 +41,7 @@ export default function Login() {
 
     const dataToSend = {
       cpf: removeCPFMask(form.values.cpf),
+      password: form.values.password,
     };
 
     mutate(dataToSend);
@@ -59,7 +60,7 @@ export default function Login() {
           <Stack justify="center" h={"100%"}>
             <Title c={"main"}>Login</Title>
             <Text fz={".9rem"} c="gray">
-              Informe seu CPF para acompanhar seus pedidos.
+              Informe seus dados para acompanhar seus pedidos.
             </Text>
             <Radio.Group
               label="Tipo de cliente"
@@ -86,6 +87,15 @@ export default function Login() {
                   : "00.000.000/0000-00"
               }
               {...form.getInputProps("cpf")}
+            />
+            <PatternFormat
+              format={"######"}
+              customInput={TextInput}
+              label={"Senha"}
+              mask={"_"}
+              withAsterisk
+              placeholder={"000000"}
+              {...form.getInputProps("password")}
             />
             {Boolean(err) && <ErrorMessage text={err?.response?.data} />}
             <Button
