@@ -99,7 +99,9 @@ export default function OrdersDashboardMobile({
               >
                 <Accordion.Control>
                   <Group>
-                    <Text fw={700}>{`Pedido Nº ${order?.id}`}</Text>
+                    <Text fw={700}>{`Pedido PAC: ${
+                      order?.patientName ?? "-"
+                    }`}</Text>
                     <Badge size="xs" color={badge?.color}>
                       {badge?.text}
                     </Badge>
@@ -115,7 +117,6 @@ export default function OrdersDashboardMobile({
                       }}
                     >
                       <Table.Th>Data</Table.Th>
-                      <Table.Th>Paciente</Table.Th>
                       <Table.Th>Valor</Table.Th>
                     </Table.Thead>
                     <Table.Tbody style={{ fontSize: ".6rem" }}>
@@ -127,7 +128,6 @@ export default function OrdersDashboardMobile({
                               )
                             : "-"}
                         </Table.Td>
-                        <Table.Td>{order?.patientName ?? "-"}</Table.Td>
                         <Table.Td>{formatCurrency(order?.price ?? 0)}</Table.Td>
                       </Table.Tr>
                     </Table.Tbody>
